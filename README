@@ -1,0 +1,39 @@
+System info
+===========
+
+he is an ASRockRack 1U4LW-X570/2L2T RPSU, with a 12-core AMD Ryzen 9 5900X,
+64GB ECC RAM, two 10Gb Intel X550-AT2 NICs, two 1Gb Intel i210 NICs and two
+1863GB NVMe SSDs.
+
+The integrated BMC is configured to redirect the UEFI console to a virtual
+8250 serial port ttyS1 (port 0x2f8, irq 3, 115200n8), exported over IPMI
+lanplus for remote installation and maintenance. This serial interface is
+also used as the Linux console once the kernel starts.
+
+The SSDs are GPT partitioned:
+
+  Device              Start        End    Sectors  Size Type
+  /dev/nvme0n1p1       2048    1050623    1048576  512M EFI System
+  /dev/nvme0n1p2    1050624 3907029134 3905978511  1.8T Linux RAID
+  /dev/nvme1n1p1       2048    1050623    1048576  512M EFI System
+  /dev/nvme1n1p2    1050624 3907029134 3905978511  1.8T Linux RAID
+
+with /dev/nvme0n1p1 and /dev/nvme1n1p1 as /boot/nvme0 and /boot/nvme1 (vfat)
+respectively. /dev/nvme0n1p2 and /dev/nvme1n1p2 are mirrored in an md raid1
+as / (ext4).
+
+The kernel is booted directly by the UEFI BIOS with command line
+
+  linux.efi console=ttyS1,115200n8 loglevel=2 \
+    md=0,/dev/nvme0n1p2,/dev/nvme1n1p2 root=/dev/md0
+
+We use a 1G zram device as swap to limit SSD wear.
+
+
+Upstream firmware binaries
+--------------------------
+
+The CPU microcode firmware/amd-ucode/*.bin is obtained from
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+
