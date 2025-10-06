@@ -3,12 +3,12 @@ curl
 dosfstools
 e2fsprogs
 file
+fping
 fzf
 git
 hypervisor
 ipmitool
 iproute2
-iputils-ping
 iw
 iwd
 kakoune
