@@ -63,8 +63,7 @@ case "$1" in
     ip address add 84.45.39.150/30 dev eth0 scope link
     ip address add 2001:9d8:4:15::b/64 dev eth0 preferred_lft 0
 
-    ip address add 194.153.169.172/31 dev eth1 scope link
-    ip address add 2001:baf::44:934a/127 dev eth1 preferred_lft 0
+    ip address add fe80::2/64 dev eth1
 
     ip address add 91.203.56.10/22 dev eth2
     ip address add 2001:67c:6f0::a/64 dev eth2
@@ -74,6 +73,9 @@ case "$1" in
 
     ip address add 10.10.10.20/24 dev eth2 scope link
     ip address add fe80::1/64 dev eth2 scope link
+
+    ip address add 91.203.56.10 peer 91.203.56.11 dev eth3
+    ip address add 2001:67c:6f0::a peer 2001:67c:6f0::b dev eth3
 
     ip route add default via 84.45.39.149 metric 2048 \
       proto static src 84.45.39.150
