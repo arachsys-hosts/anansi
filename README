@@ -2,8 +2,9 @@ System info
 ===========
 
 anansi and aragog are ASRockRack 1U4LW-X570/2L2T RPSUs, each with a
-12-core AMD Ryzen 9 5900X, 64G ECC RAM, two 10Gb Intel X550-AT2 NICs,
-two 1Gb Intel i210 NICs, two 1863G NVMe SSDs and two 16.4T HDDs.
+12-core AMD Ryzen 9 5900X, 64G ECC RAM, two 10Gb Intel X550-AT2 NICs, two
+1Gb Intel i210 NICs, two 1863G NVMe SSDs and two 16.4T HDDs. anansi also
+has a 82599ES dual 10Gb SFP+ NIC.
 
 The integrated BMC is configured to redirect the UEFI console to a virtual
 8250 serial port ttyS1 (port 0x2f8, irq 3, 115200n8), exported over IPMI
@@ -57,7 +58,7 @@ BIOS and BMC configuration
 --------------------------
 
 UEFI version: X570D4U-2L2T L1.74
-BMC version: 3.04.00
+BMC version: 3.07.00
 
 From BIOS defaults:
 

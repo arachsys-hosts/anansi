@@ -44,7 +44,7 @@ case "$1" in
       daemon -c -r agetty $TTY
     done < /proc/consoles
 
-    sysctl -q net.core.{r,w}mem_{default,max}=4194304
+    sysctl -q net.core.{r,w}mem_{default,max}=16777216
     sysctl -q net.ipv{4,6}.conf.{all,default}.forwarding=1
     sysctl -q net.ipv4.conf.{all,default}.arp_evict_nocarrier=0
     sysctl -q net.ipv6.conf.{all,default}.ndisc_evict_nocarrier=0
@@ -60,18 +60,23 @@ case "$1" in
     ip link set eth2 up
     ip link set eth3 mtu 9000 up
 
+    ip address add 91.203.56.11 dev lo
+    ip address add 2001:67c:6f0::b dev lo
+
     ip address add fe80::2/64 dev eth0
 
-    ip address add 84.45.87.162/30 dev eth1 scope link
-    ip address add 2001:9d8:4:14::b/64 dev eth1 preferred_lft 0
+    ip address add 84.45.87.162/30 dev eth1
+    ip address add 212.21.98.1/29 dev eth1
+    ip address add 2001:9d8:4:14::b/64 dev eth1
 
     ip address add 91.203.56.11/22 dev eth2
-    ip address add 2001:67c:6f0::b/64 dev eth2
-
     ip address add 91.203.57.1/22 dev eth2
-    ip address add 2001:67c:6f0::2/64 dev eth2
-
+    ip address add 83.138.62.2/24 dev eth2
     ip address add 10.10.10.21/24 dev eth2 scope link
+
+    ip address add 2001:67c:6f0::b/64 dev eth2
+    ip address add 2001:67c:6f0::2/64 dev eth2
+    ip address add 2a05:5a41::2/64 dev eth2
     ip address add fe80::2/64 dev eth2 scope link
 
     ip address add 91.203.56.11 peer 91.203.56.10 dev eth3
@@ -81,6 +86,8 @@ case "$1" in
       proto static src 84.45.87.162
     ip route add default via 2001:9d8:4:14::a metric 2048 \
       proto static src 2001:9d8:4:14::b
+
+    ip route add 2a05:5a41:bb::/64 dev eth2
 
     if test -w /var/log; then
       syslogd -b
