@@ -44,6 +44,8 @@ case "$1" in
       daemon -c -r agetty $TTY
     done < /proc/consoles
 
+    nft -f /etc/filter
+
     sysctl -q net.core.{r,w}mem_{default,max}=16777216
     sysctl -q net.ipv{4,6}.conf.{all,default}.forwarding=1
     sysctl -q net.ipv4.conf.{all,default}.arp_evict_nocarrier=0

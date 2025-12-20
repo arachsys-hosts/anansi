@@ -1,0 +1,16 @@
+flush ruleset
+table inet filter {
+  chain input {
+    type filter hook input priority filter
+    tcp dport 179 ip saddr != {
+      84.45.87.161,
+      212.21.98.2,
+      127.0.0.0/8
+    } reject with tcp reset
+    tcp dport 179 ip6 saddr != {
+      2001:67c:6f0::a,
+      2001:9d8:4:14::a,
+      fe80::/64
+    } reject with tcp reset
+  }
+}
