@@ -1,0 +1,9 @@
+[Interface]
+ListenPort = 51280
+PrivateKey = AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+
+[Peer]
+AllowedIPs = ::/0
+Endpoint = shelob.arachsys.com:51280
+PersistentKeepalive = 25
+PublicKey = MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA=

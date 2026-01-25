@@ -13,5 +13,11 @@ table inet filter {
       2a00:16f8:11::a41,
       fe80::/64
     } reject with tcp reset
+    tcp dport 2583 ip saddr != {
+      91.203.57.136
+    } reject with tcp reset
+    tcp dport 2583 ip6 saddr != {
+      2001:67c:6f0::188
+    } reject with tcp reset
   }
 }
