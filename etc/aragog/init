@@ -7,10 +7,6 @@ case "$1" in
   start | "")
     hostname aragog
 
-    if [[ $(mountpoint -d -q /tmp) == 0:2 ]]; then
-      find /tmp -mindepth 1 -xdev -delete && umount /tmp
-    fi
-
     mount -a -t proc
     mount -a -m -t cgroup2,devpts,devtmpfs,sysfs,tmpfs
     mount -m -r -B /run/empty /run/empty

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -o pipefail
+shopt -s nullglob
 export PATH=/bin
 
 case "$1" in
@@ -43,14 +44,11 @@ case "$1" in
 
         lvm vgchange -a y --sysinit >/dev/null 2>&1
         if set -- /dev/*/root && [[ $# -eq 1 ]]; then
-          if mount -m -r "$1" /root && cd /root; then
-            if [[ ! -x etc/init ]]; then
+          if mount -m -r "$1" /root; then
+            if [[ -x /root/etc/init ]]; then
+              pivot /root && exec /etc/init
+            else
               echo 'Root filesystem is missing /etc/init'
-            elif [[ ! -d tmp ]]; then
-              echo 'Root filesystem is missing /tmp'
-            elif mount --bind / tmp && mount --move . /; then
-              umount -l /dev /sys /proc
-              exec chroot . /etc/init
             fi
           else
             echo 'Failed to mount root filesystem'

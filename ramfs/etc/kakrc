@@ -5,12 +5,11 @@ set-option global writemethod replace
 
 set-option -add global ui_options terminal_assistant=none
 set-option -add global ui_options terminal_set_title=false
-set-option -add global ui_options terminal_synchronized=false
 
 add-highlighter global/window-wrap wrap
 
-map global insert <pageup> '<a-;><c-b>'
-map global insert <pagedown> '<a-;><c-f>'
+map global insert <pageup> '<a-;><pageup>'
+map global insert <pagedown> '<a-;><pagedown>'
 map global insert <a-b> '<a-;>b<a-;>;'
 map global insert <a-B> '<a-;><a-b><a-;>;'
 map global insert <a-d> '<a-;>w<a-;>d'

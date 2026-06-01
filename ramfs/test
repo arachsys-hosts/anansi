@@ -4,8 +4,8 @@ set -e -o pipefail
 shopt -s dotglob extglob globstar nullglob
 cd -- "${0%/*}"
 
-if ! type -t hyper >/dev/null; then
-  echo 'Missing hypervisor: hyper not found' 2>&1
+if ! type -t hypervisor >/dev/null; then
+  echo 'Missing hypervisor: hypervisor not found' 2>&1
   exit 1
 elif [[ ! -f ../../guest/boot/linux ]]; then
   echo 'Missing kernel: ../../guest/boot/linux not found' 2>&1
@@ -15,5 +15,6 @@ elif [[ ! -f ../boot/ramfs.cpio ]]; then
   exit 1
 fi
 
-exec hyper --cpus boot=1 --memory size=1G --kernel=../../guest/boot/linux \
-  --initramfs=../boot/ramfs.cpio --cmdline quiet
+exec hypervisor --cpus boot=1 --memory size=1G \
+  --kernel=../../guest/boot/linux --initramfs=../boot/ramfs.cpio \
+  --cmdline quiet
