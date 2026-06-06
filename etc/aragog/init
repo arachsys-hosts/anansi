@@ -87,6 +87,7 @@ case "$1" in
     daemon -l dns-sync dns-sync /etc/microdns
     daemon wifiguard 2a01:4f8:c17:ac0f::b
     daemon -u nobody ifstatd 2583 eth\*
+    daemon health
 
     daemon "$0" watchdog
     test -w / && daemon /etc/guests
